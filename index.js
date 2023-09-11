@@ -1,8 +1,8 @@
 import express from "express";
-import ProductManager from "./productManager.js";
-import CartManager from "./cartManager.js";
-const cartManager = new CartManager('../carts.json')
-const manager = new ProductManager('../products.json');
+import ProductManager from "./src/productManager.js";
+import CartManager from "./src/cartManager.js";
+const cartManager = new CartManager('./carts.json')
+const manager = new ProductManager('./products.json');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -26,7 +26,7 @@ app.post('/api/products', async (req, res) => {
             category,
             status
         });
-        res.status(400).send({ result: result });
+        res.status(200).send({ result: result });
         
     } catch (error) {
         console.error('Error al agregar el producto:', error);
@@ -37,21 +37,31 @@ app.post('/api/products', async (req, res) => {
 app.get('/api/products', async(req,res)=>{
     const {limit} = req.query
     const products = await manager.getProducts()
-    if(limit){
-        const productLimit = products.slice(0, limit)
-        res.send({productLimit})
-        return
-    }
-    else{
-        res.send({products})
+    try{
+        if(limit){
+            const productLimit = products.slice(0, limit)
+            res.send({productLimit})
+        }
+        else{
+            res.send({products})
+            return
+        }
+    } catch (error){
+        res.status(400).send({message:'Error al agregar el producto' });
     }
     
 })
 
 app.get(`/api/products/:pid`, async(req,res)=>{
+    
     const pid= parseInt(req.params.pid)
     const productsById = await manager.getProductsById(pid)
-        res.send(productsById)
+    if (productsById === "Not Found") {
+        res.status(404).send({ error: 'Id Not Found' });
+    } else {
+        res.status(200).send(productsById)
+    }
+
 })
 
 app.put('/api/products/:pid', async(req,res)=>{
@@ -70,8 +80,7 @@ app.put('/api/products/:pid', async(req,res)=>{
             category,
             status
         });
-        res.status(400).send({ message: result });
-        
+        res.status(200).send({ message: result });
     } catch (error) {
         res.status(500).send({ error: 'Error on update Product' });
     }
@@ -123,6 +132,16 @@ app.post('/api/carts/:cid/products/:pid', async (req, res) => {
     try {
         const product = { product: { id: pid }, quantity: quantity || 1 };
         const result = await cartManager.addProductToCart(cid, product);
+
+
+        
+        const productsById = await manager.getProductsById(pid)
+        if (productsById === "Not Found") {
+            res.status(404).send({ error: 'Id Not Found' });
+        } 
+
+
+
         if (result.startsWith('Cart with ID') || result === 'addProductToCart fails') {
             res.status(404).send({ error: result });
         } else {

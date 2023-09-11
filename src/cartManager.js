@@ -2,7 +2,7 @@ import { promises as fs } from "fs"
 
 export default class CartManager {
     constructor() {
-        this.path = "../carts.json"
+        this.path = "./carts.json"
         this.carts = []
     }
     static id = 0

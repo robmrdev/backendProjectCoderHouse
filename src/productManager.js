@@ -2,7 +2,7 @@ import { promises as fs } from "fs"
 
 export default class ProductManager {
     constructor() {
-        this.path = "../products.json"
+        this.path = "./products.json"
         this.products = []
     }
 
@@ -44,6 +44,8 @@ addProduct = async ({ title, description, price, thumbmail=[], code, stock, cate
             return JSON.parse(products)
         }
         catch (err) {
+            let products = await fs.readFile(this.path, "utf-8")
+            console.log(JSON.parse(products)) 
             return "ERROR GET PRODUCTS"
         }
     }
