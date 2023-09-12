@@ -1,0 +1,45 @@
+<h1>PRODUCTS FROM WEBSOCKET</h1>
+<div class="productContainer" id="realTimeProducts">
+    {{#each user}}
+    <div>
+        <h3>Number {{this.id}}</h3>
+        <p>Product: {{this.title}}</p>
+        <p>Description: {{this.description}}</p>
+        <p>Code: {{this.code}}</p>
+        <p>Price: {{this.price}}</p>
+        <p>Stock: {{this.stock}}</p>
+        <button>Delete</button>
+    </div>
+    {{/each}}
+</div>
+
+        <form method="POST" action="/api/products">
+            <label for="title">title:</label>
+            <input type="text" name="title" id="title" required>
+            
+            <label for="description">description:</label>
+            <input type="text" name="description" id="description" required>
+            
+            <label for="thumbmail">thumbmail:</label>
+            <input type="text" name="thumbmail" id="thumbmail" required>
+            
+            <label for="code">code:</label>
+            <input type="text" name="code" id="code" required>
+            
+            <label for="price">price:</label>
+            <input type="text" name="price" id="price" required>
+            
+            <label for="stock">stock:</label>
+            <input type="text" name="stock" id="stock" required>
+            
+            <label for="category">category:</label>
+            <input type="text" name="category" id="category" required>
+            
+            
+            <br>
+            
+            
+            <button type="submit">Registrar</button>
+        </form>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

@@ -1,0 +1,11 @@
+h1{
+    text-align: center;
+}
+.productContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.productContainer div {
+    width: 400px;
+}

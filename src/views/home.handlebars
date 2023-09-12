@@ -1,0 +1,14 @@
+<h1>PRODUCTS</h1>
+<div class="productContainer">
+    {{#each user}}
+    <div>
+        <h3>Number {{this.id}}</h3>
+        <p>Product: {{this.title}}</p>
+        <p>Description: {{this.description}}</p>
+        <p>Code: {{this.code}}</p>
+        <p>Price: {{this.price}}</p>
+        <p>Stock: {{this.stock}}</p>
+    </div>
+    {{/each}}
+</div>
+<script src="/js/index.js"></script>

@@ -7,12 +7,13 @@ export default class ProductManager {
     }
 
     static id = 0
+
+
 addProduct = async ({ title, description, price, thumbmail=[], code, stock, category, status=true }) => {
     try {
         this.products = await this.getProducts();
         if (!title || !description || !price || !code || !stock || !category || typeof status !== 'boolean') {
             return('Todos los campos son requeridos para agregar un producto.');
-            
         }
         const existingProduct = await this.products.find(product => product.code === code);
         if (existingProduct) {
@@ -29,7 +30,6 @@ addProduct = async ({ title, description, price, thumbmail=[], code, stock, cate
         this.products.push(newProduct);
         
         await fs.writeFile(this.path, JSON.stringify(this.products));
-        
         return('Producto agregado exitosamente.');
     } catch (err) {
         console.log(`addProduct fails`, err);
