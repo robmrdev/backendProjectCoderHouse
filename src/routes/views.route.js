@@ -18,7 +18,7 @@ router.get('/register', async (req, res) => {
 
 
 
-router.get('/realtimeproducts', async (req,res)=>{
+router.get('/realTimeProducts', async (req,res)=>{
     const users = await manager.getProducts();
     res.render('realtimeproducts', {
         user: users,
@@ -26,7 +26,7 @@ router.get('/realtimeproducts', async (req,res)=>{
     })
 })
 
-router.post('/realtimeproducts', async (req, res) => {
+router.post('/realTimeProducts', async (req, res) => {
     const { title, description, price, thumbmail, code, stock, category, status } = req.body;
 
     try {
