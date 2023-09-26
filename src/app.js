@@ -14,10 +14,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-// app.listen(8080,()=>{
-//     console.log('listening 8080')
-// })
-
 
 const httpServer = app.listen(8080, () => console.log('listening 8080'));
 export const socketServer = new Server(httpServer);
@@ -38,16 +34,13 @@ app.use('/', viewRouter)
 socketServer.on('connection', socket=>{
     console.log('Nuevo cliente');
 
-    // socket.on('updateProducts', products);
 
     socket.on('message',data=>{
         console.log(data)
     });
 
-    // socket.on('update',)
 })
 
-// const server = app.listen(8080, () => console.log('listening 8080'))
 
 
 
@@ -60,6 +53,15 @@ socketServer.on('connection', socket=>{
 
 app.post('/api/products', async (req, res) => {
     const { title, description, price, thumbmail, code, stock, category, status } = req.body;
+
+
+
+
+    const products = await manager.getProducts()
+    socketServer.emit('updateProducts', products)
+
+
+
 
     try {
         const result = await manager.addProduct({
@@ -135,6 +137,15 @@ app.put('/api/products/:pid', async(req,res)=>{
 
 app.delete('/api/products/:pid', async(req,res)=>{
     const pid= parseInt(req.params.pid)
+
+
+    
+    const products = await manager.getProducts()
+    socketServer.emit('updateProducts', products)
+
+
+
+
     try{
         const result = await manager.deleteProduct(pid)
         res.status(400).send({ message: result });
