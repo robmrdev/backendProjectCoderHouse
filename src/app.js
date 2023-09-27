@@ -57,8 +57,6 @@ app.post('/api/products', async (req, res) => {
 
 
 
-    const products = await manager.getProducts()
-    socketServer.emit('updateProducts', products)
 
 
 
@@ -74,8 +72,9 @@ app.post('/api/products', async (req, res) => {
             category,
             status
         });
-        res.status(200).send({ result: result });
-        socketServer.emit('result', result)
+
+        const products = await manager.getProducts()
+        socketServer.emit('updateProducts', products)
         
     } catch (error) {
         console.error('Error al agregar el producto:', error);
@@ -136,24 +135,25 @@ app.put('/api/products/:pid', async(req,res)=>{
 });
 
 app.delete('/api/products/:pid', async(req,res)=>{
+
     const pid= parseInt(req.params.pid)
 
-
-    
-    const products = await manager.getProducts()
-    socketServer.emit('updateProducts', products)
-
-
-
-
     try{
-        const result = await manager.deleteProduct(pid)
-        res.status(400).send({ message: result });
 
-        socketServer.emit('result', result)
+        const result = await manager.deleteProduct(pid)
+
+        const products = await manager.getProducts()
+
+        socketServer.emit('updateProducts', products)
+
+        res.status(200).send({ message: result });
+
     } catch (error){
+
         res.status(500).send({ error: 'Error on Delete Product' });
+
     }
+
 })
 
 
