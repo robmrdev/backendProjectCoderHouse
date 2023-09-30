@@ -1,5 +1,5 @@
-const socket = io();
-socket.emit('message', "From websocket")
+// const socket = io();
+// socket.emit('message', "From websocket")
 
 
 socket.on('updateProducts', products =>{
@@ -38,6 +38,26 @@ socket.on('updateProducts', products =>{
         productCard.appendChild(productDelete);
 
     });
+    document.querySelectorAll('.delete-product').forEach((button) => {
+        button.addEventListener('click', async (e) => {
+            const productId = e.target.getAttribute('data-product-id');
+    
+            try {
+                const response = await fetch(`/api/products/${productId}`, {
+                    method: 'DELETE',
+                });
+    
+                if (response.status === 200) {
+                    console.log('Producto eliminado con éxito');
+                } 
+                else {
+                    console.error('Error al eliminar el producto');
+                }
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        });
+    });
 })
 
 document.querySelectorAll('.delete-product').forEach((button) => {
@@ -62,7 +82,6 @@ document.querySelectorAll('.delete-product').forEach((button) => {
 });
 
 
-
 document.querySelector('form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -84,8 +103,8 @@ document.querySelector('form').addEventListener('submit', async (e) => {
                 stock,
                 category
             }),
-            
         });
+        console.log(response)
 
         if (response.status === 200) {
             console.log('Producto registrado con éxito');

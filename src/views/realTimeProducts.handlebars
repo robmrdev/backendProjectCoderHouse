@@ -13,7 +13,7 @@
     {{/each}}
 </div>
 
-        <form method="POST" action="/api/realTimeProducts">
+        <form>
             <label for="title">title:</label>
             <input type="text" name="title" id="title" required>
             
@@ -41,5 +41,40 @@
             
             <button type="submit">Registrar</button>
         </form>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>
+{{!-- <script src="/socket.io/socket.io.js"></script> --}}
+<script>
+    document.querySelector('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const code = document.getElementById('title').value;
+    const price = document.getElementById('price').value;
+    const stock = document.getElementById('stock').value;
+    const category = document.getElementById('category').value;
+    try {
+        const response = await fetch('/api/products', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title,
+                description,
+                code,
+                price,
+                stock,
+                category
+            }),
+        });
+        console.log(response)
+
+        if (response.status === 200) {
+            console.log('Producto registrado con éxito');
+        } else {
+            console.error('Error al registrar el producto');
+        }
+    } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+    }
+})
+    
+</script>
