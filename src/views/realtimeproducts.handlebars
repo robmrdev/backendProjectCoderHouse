@@ -2,13 +2,13 @@
 <div class="productContainer" id="realTimeProducts">
     {{#each user}}
     <div>
-        <h3>Number {{this.id}}</h3>
+        <h3>Number {{this._id}}</h3>
         <p>Product: {{this.title}}</p>
         <p>Description: {{this.description}}</p>
         <p>Code: {{this.code}}</p>
         <p>Price: {{this.price}}</p>
         <p>Stock: {{this.stock}}</p>
-        <button class="delete-product" data-product-id="{{this.id}}">Delete</button>
+        <button class="delete-product" data-product-id="{{this._id}}">Delete</button>
     </div>
     {{/each}}
 </div>
@@ -20,8 +20,8 @@
             <label for="description">description:</label>
             <input type="text" name="description" id="description" required>
             
-            <label for="thumbmail">thumbmail:</label>
-            <input type="text" name="thumbmail" id="thumbmail" required>
+            <label for="thumbnail">thumbnail:</label>
+            <input type="text" name="thumbnail" id="thumbnail" required>
             
             <label for="code">code:</label>
             <input type="text" name="code" id="code" required>
@@ -42,39 +42,4 @@
             <button type="submit">Registrar</button>
         </form>
 {{!-- <script src="/socket.io/socket.io.js"></script> --}}
-<script>
-    document.querySelector('form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
-    const code = document.getElementById('title').value;
-    const price = document.getElementById('price').value;
-    const stock = document.getElementById('stock').value;
-    const category = document.getElementById('category').value;
-    try {
-        const response = await fetch('/api/products', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                title,
-                description,
-                code,
-                price,
-                stock,
-                category
-            }),
-        });
-        console.log(response)
-
-        if (response.status === 200) {
-            console.log('Producto registrado con éxito');
-        } else {
-            console.error('Error al registrar el producto');
-        }
-    } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
-    }
-})
-    
-</script>
+<script src="js/index.js"> </script>

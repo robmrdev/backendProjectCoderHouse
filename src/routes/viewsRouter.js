@@ -7,21 +7,34 @@ import ProductManager from "../dao/fileManagers/productManager.js";
 import { Router } from "express";
 import CartDBManager from "../dao/dbManagers/cartManager.js";
 import ProductDBManager from "../dao/dbManagers/productManager.js";
+import ChatDBManager from "../dao/dbManagers/chatManager.js";
 
 const router = Router()
 
 const productManager = new ProductDBManager();
+const chatManager = new ChatDBManager()
 
 router.get('/realTimeProducts', async (req,res)=>{
     try {
-        // const user = await productManager.getAll()
-        // res.render('realTimeProducts', {user})
-        // console.log(user)
         const users = await productManager.getAll();
-        // console.log(users)
     res.render('realtimeproducts', {
         user: users
     })
+    } catch (error) {
+        console.error(error.message)
+    }
+})
+
+router.get('/chat', async (req,res)=>{
+    try {
+        let messages = await chatManager.getAll()
+        res.render('chat',{
+            messages: messages
+        })
+
+
+
+
     } catch (error) {
         console.error(error.message)
     }
@@ -44,14 +57,14 @@ router.get('/realTimeProducts', async (req,res)=>{
 // })
 
 // router.post('/realTimeProducts', async (req, res) => {
-//     const { title, description, price, thumbmail, code, stock, category, status } = req.body;
+//     const { title, description, price, thumbnail, code, stock, category, status } = req.body;
 
 //     try {
 //         const result = await manager.addProduct({
 //             title,
 //             description,
 //             price,
-//             thumbmail,
+//             thumbnail,
 //             code,
 //             stock,
 //             category,

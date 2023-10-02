@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         require: true
     }, 
-    thumbmail:{
+    thumbnail:{
         type: Array,
         default: []
     }, 

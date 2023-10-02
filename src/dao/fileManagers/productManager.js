@@ -9,7 +9,7 @@ export default class ProductManager {
     static id = 0
 
 
-addProduct = async ({ title, description, price, thumbmail=[], code, stock, category, status=true }) => {
+addProduct = async ({ title, description, price, thumbnail=[], code, stock, category, status=true }) => {
     try {
         this.products = await this.getProducts();
         if (!title || !description || !price || !code || !stock || !category || typeof status !== 'boolean') {
@@ -26,7 +26,7 @@ addProduct = async ({ title, description, price, thumbmail=[], code, stock, cate
             ProductManager.id = lastProduct.id;
         }
         ProductManager.id++;
-        let newProduct = { title, description, price, thumbmail, code, stock, category, status, id: ProductManager.id };
+        let newProduct = { title, description, price, thumbnail, code, stock, category, status, id: ProductManager.id };
         this.products.push(newProduct);
         
         await fs.writeFile(this.path, JSON.stringify(this.products));
@@ -64,7 +64,7 @@ addProduct = async ({ title, description, price, thumbmail=[], code, stock, cate
             return false
         }
     }
-    updateProduct = async ({ id, title, description, price, thumbmail, code, stock, category, status }) => {
+    updateProduct = async ({ id, title, description, price, thumbnail, code, stock, category, status }) => {
         try {
             if (!id || !title || !description || !price || !code || !stock || !category || typeof status !== 'boolean') {
                 return('Todos los campos son requeridos para actualizar un producto.');
@@ -78,7 +78,7 @@ addProduct = async ({ title, description, price, thumbmail=[], code, stock, cate
                         title,
                         description,
                         price,
-                        thumbmail,
+                        thumbnail,
                         code,
                         stock,
                         category,
@@ -150,7 +150,7 @@ const product = new ProductManager;
 // await product.updateProduct({
 //     title: 'Producto 1 MOFIDICADO2',
 //     price: 343434,
-//     thumbmail: 'https://www.productos.com/producto1.png',
+//     thumbnail: 'https://www.productos.com/producto1.png',
 //     code: 'a1a1a1a1a1',
 //     stock: 30,
 //     id: 1
@@ -160,7 +160,7 @@ const product = new ProductManager;
 // console.log(products)
 
 
-    // updateProduct = async ({ title, description, price, thumbmail=[], code, stock, category, status=true }) => {
+    // updateProduct = async ({ title, description, price, thumbnail=[], code, stock, category, status=true }) => {
     //     try {
     //         if (!title || !description || !price || !code || !stock || !category || !status) {
     //             return('Todos los campos son requeridos para actualizar un producto.')
@@ -168,7 +168,7 @@ const product = new ProductManager;
             
     //         await this.deleteProduct(id);
     //         let productsBefore = await this.getProducts()
-    //         let modifiedProduct = [{ title, description, price, thumbmail, code, stock, category, status }, ...productsBefore];
+    //         let modifiedProduct = [{ title, description, price, thumbnail, code, stock, category, status }, ...productsBefore];
     //         await fs.writeFile(this.path, JSON.stringify(modifiedProduct))
     //     }
     //     catch (err) {

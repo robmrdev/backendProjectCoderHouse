@@ -2,7 +2,9 @@
 // socket.emit('message', "From websocket")
 
 
-socket.on('updateProducts', products =>{
+
+
+function updateProducts (products) {
 
     const productList = document.getElementById('realTimeProducts');
     productList.innerHTML = ''; 
@@ -10,7 +12,7 @@ socket.on('updateProducts', products =>{
     products.forEach((product) => {
         const productCard = document.createElement('div');
         const productNumber = document.createElement('h3');
-        productNumber.textContent = `Number ${product.id}`;
+        productNumber.textContent = `Number ${product._id}`;
         const productTitle = document.createElement('p');
         productTitle.textContent = `Product: ${product.title}`;
         const productDescription = document.createElement('p');
@@ -34,10 +36,11 @@ socket.on('updateProducts', products =>{
 
         productDelete.textContent = `Delete`;
         productDelete.className = 'delete-product'
-        productDelete.setAttribute('data-product-id', product.id);
+        productDelete.setAttribute('data-product-id', product._id);
         productCard.appendChild(productDelete);
 
     });
+
     document.querySelectorAll('.delete-product').forEach((button) => {
         button.addEventListener('click', async (e) => {
             const productId = e.target.getAttribute('data-product-id');
@@ -46,7 +49,13 @@ socket.on('updateProducts', products =>{
                 const response = await fetch(`/api/products/${productId}`, {
                     method: 'DELETE',
                 });
-    
+
+
+                const newProductList = await fetch('/api/products/', { method: 'GET'})
+                const productListUpdated = await newProductList.json()
+                updateProducts(productListUpdated.payload)
+
+
                 if (response.status === 200) {
                     console.log('Producto eliminado con éxito');
                 } 
@@ -58,16 +67,25 @@ socket.on('updateProducts', products =>{
             }
         });
     });
-})
+}
+
+
 
 document.querySelectorAll('.delete-product').forEach((button) => {
     button.addEventListener('click', async (e) => {
         const productId = e.target.getAttribute('data-product-id');
-
+        console.log(productId)
         try {
             const response = await fetch(`/api/products/${productId}`, {
                 method: 'DELETE',
             });
+
+
+            const newProductList = await fetch('/api/products/', { method: 'GET'})
+            const productListUpdated = await newProductList.json()
+            updateProducts(productListUpdated.payload)
+
+
 
             if (response.status === 200) {
                 console.log('Producto eliminado con éxito');
@@ -87,10 +105,13 @@ document.querySelector('form').addEventListener('submit', async (e) => {
 
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
-    const code = document.getElementById('title').value;
+    const code = document.getElementById('code').value;
     const price = document.getElementById('price').value;
     const stock = document.getElementById('stock').value;
     const category = document.getElementById('category').value;
+    const thumbnail = document.getElementById('thumbnail').value;
+    const status = true
+
     try {
         const response = await fetch('/api/products', {
             method: 'POST',
@@ -101,12 +122,17 @@ document.querySelector('form').addEventListener('submit', async (e) => {
                 code,
                 price,
                 stock,
-                category
+                category,
+                thumbnail,
+                status
             }),
         });
-        console.log(response)
+        
+        const newProductList = await fetch('/api/products/', { method: 'GET'})
+        const productListUpdated = await newProductList.json()
+        updateProducts(productListUpdated.payload)
 
-        if (response.status === 200) {
+        if (response.status === 201) {
             console.log('Producto registrado con éxito');
         } else {
             console.error('Error al registrar el producto');
@@ -115,3 +141,64 @@ document.querySelector('form').addEventListener('submit', async (e) => {
         console.error('Error al realizar la solicitud:', error);
     }
 });
+
+
+
+
+
+
+
+// let user;
+// let chatBox = document.getElementById('chatBox');
+
+
+
+
+// Swal.fire({
+//     title: "Identify yourself",
+//     input: 'text',
+//     text: "What's your name?"  ,
+//     inputValidator: (value)=>{
+//         return !value && 'You need to have a Name'
+//     },
+//     allowOutsideClick: false
+// }).then((result)=>{
+//     user = result.value;
+//     authenticate()
+//     console.log(authenticate())
+
+//     socket.on('messageLog', data=>{
+//         let log = document.getElementById('messageLog')
+//         let messages = "";
+//         data.forEach(e => {
+//             messages = messages+`${e.user} says: ${e.message}</br>`
+//         });
+//         log.innerHTML = messages;
+//     })
+
+//     socket.on('userConnected', data=>{
+//         Swal.fire({
+//             text: 'Nuevo usuario conectado',
+//             toast: true,
+//             position: 'top-right'
+//         });
+//     });
+// });
+
+// chatBox.addEventListener('keyup', evt=>{
+//     if (evt.key==='Enter'){
+//         if(chatBox.value.trim().length>0){
+//             socket.emit('message',{user:user, message:chatBox.value});
+//             chatBox.value="";
+//         }
+//     }
+// })
+
+// socket.on('messageLog', data=>{
+//     let log = document.getElementById('messageLog')
+//     let messages = "";
+//     data.forEach(e => {
+//         messages = messages+`${e.user} says: ${e.message}</br>`
+//     });
+//     log.innerHTML = messages;
+// })

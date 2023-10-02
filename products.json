@@ -1,1 +1,152 @@
-[{"id":1,"title":"Producto 1","description":"Descripcion de producto 1","code":"a1a1a1a1a1a1","price":2300,"status":true,"stock":13,"category":"Category1","thumbmail":["https://www.productos.com/producto1a.png","https://www.productos.com/producto1b.png","https://www.productos.com/producto1c.png"]},{"id":2,"title":"Producto 2","description":"Descripcion de producto 2","code":"b1b1b1b1b1b1","price":2000,"status":true,"stock":29,"category":"Category1","thumbmail":["https://www.productos.com/producto2a.png","https://www.productos.com/producto2b.png","https://www.productos.com/producto2c.png"]},{"id":3,"title":"Producto 3","description":"Descripcion de producto 3","code":"c1c1c1c1c1c1","price":1800,"status":true,"stock":28,"category":"Category1","thumbmail":["https://www.productos.com/producto3a.png","https://www.productos.com/producto3b.png","https://www.productos.com/producto3c.png"]},{"id":4,"title":"Producto 4","description":"Descripcion de producto 4","code":"d1d1d1d1d1d1","price":1900,"status":true,"stock":32,"category":"Category2","thumbmail":["https://www.productos.com/producto4a.png","https://www.productos.com/producto4b.png","https://www.productos.com/producto4c.png"]},{"id":5,"title":"Producto 5","description":"Descripcion de producto 5","code":"e1e1e1e1e1e1","price":2100,"status":true,"stock":34,"category":"Category2","thumbmail":["https://www.productos.com/producto5a.png","https://www.productos.com/producto5b.png","https://www.productos.com/producto5c.png"]},{"id":6,"title":"Producto 6","description":"Descripcion de producto 6","code":"f1f1f1f1f1f1","price":5000,"status":true,"stock":40,"category":"Category2","thumbmail":["https://www.productos.com/producto6a.png","https://www.productos.com/producto6b.png","https://www.productos.com/producto6c.png"]},{"id":7,"title":"Producto 7","description":"Descripcion de producto 7","code":"g1g1g1g1g1g1","price":4200,"status":true,"stock":15,"category":"Category2","thumbmail":["https://www.productos.com/producto7a.png","https://www.productos.com/producto7b.png","https://www.productos.com/producto7c.png"]},{"id":8,"title":"Producto 8","description":"Descripcion de producto 8","code":"h1h1h1h1h1h1","price":7500,"status":true,"stock":12,"category":"Category3","thumbmail":["https://www.productos.com/producto8a.png","https://www.productos.com/producto8b.png","https://www.productos.com/producto8c.png"]},{"id":9,"title":"Producto 9","description":"Descripcion de producto 9","code":"i1i1i1i1i1i1","price":900,"status":true,"stock":45,"category":"Category3","thumbmail":["https://www.productos.com/producto9a.png","https://www.productos.com/producto9b.png","https://www.productos.com/producto9c.png"]},{"id":10,"title":"Producto 10","description":"Descripcion de producto 10","code":"j1j1j1j1j1j1","price":680,"status":false,"stock":96,"category":"Category3","thumbmail":["https://www.productos.com/producto10a.png","https://www.productos.com/producto10b.png","https://www.productos.com/producto10c.png"]}]
+[
+    {
+        "id": 1,
+        "title": "Producto 1",
+        "description": "Descripcion de producto 1",
+        "code": "a1a1a1a1a1a1",
+        "price": 2300,
+        "status": true,
+        "stock": 13,
+        "category": "Category1",
+        "thumbnail": [
+            "https://www.productos.com/producto1a.png",
+            "https://www.productos.com/producto1b.png",
+            "https://www.productos.com/producto1c.png"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Producto 2",
+        "description": "Descripcion de producto 2",
+        "code": "b1b1b1b1b1b1",
+        "price": 2000,
+        "status": true,
+        "stock": 29,
+        "category": "Category1",
+        "thumbnail": [
+            "https://www.productos.com/producto2a.png",
+            "https://www.productos.com/producto2b.png",
+            "https://www.productos.com/producto2c.png"
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Producto 3",
+        "description": "Descripcion de producto 3",
+        "code": "c1c1c1c1c1c1",
+        "price": 1800,
+        "status": true,
+        "stock": 28,
+        "category": "Category1",
+        "thumbnail": [
+            "https://www.productos.com/producto3a.png",
+            "https://www.productos.com/producto3b.png",
+            "https://www.productos.com/producto3c.png"
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Producto 4",
+        "description": "Descripcion de producto 4",
+        "code": "d1d1d1d1d1d1",
+        "price": 1900,
+        "status": true,
+        "stock": 32,
+        "category": "Category2",
+        "thumbnail": [
+            "https://www.productos.com/producto4a.png",
+            "https://www.productos.com/producto4b.png",
+            "https://www.productos.com/producto4c.png"
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Producto 5",
+        "description": "Descripcion de producto 5",
+        "code": "e1e1e1e1e1e1",
+        "price": 2100,
+        "status": true,
+        "stock": 34,
+        "category": "Category2",
+        "thumbnail": [
+            "https://www.productos.com/producto5a.png",
+            "https://www.productos.com/producto5b.png",
+            "https://www.productos.com/producto5c.png"
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Producto 6",
+        "description": "Descripcion de producto 6",
+        "code": "f1f1f1f1f1f1",
+        "price": 5000,
+        "status": true,
+        "stock": 40,
+        "category": "Category2",
+        "thumbnail": [
+            "https://www.productos.com/producto6a.png",
+            "https://www.productos.com/producto6b.png",
+            "https://www.productos.com/producto6c.png"
+        ]
+    },
+    {
+        "id": 7,
+        "title": "Producto 7",
+        "description": "Descripcion de producto 7",
+        "code": "g1g1g1g1g1g1",
+        "price": 4200,
+        "status": true,
+        "stock": 15,
+        "category": "Category2",
+        "thumbnail": [
+            "https://www.productos.com/producto7a.png",
+            "https://www.productos.com/producto7b.png",
+            "https://www.productos.com/producto7c.png"
+        ]
+    },
+    {
+        "id": 8,
+        "title": "Producto 8",
+        "description": "Descripcion de producto 8",
+        "code": "h1h1h1h1h1h1",
+        "price": 7500,
+        "status": true,
+        "stock": 12,
+        "category": "Category3",
+        "thumbnail": [
+            "https://www.productos.com/producto8a.png",
+            "https://www.productos.com/producto8b.png",
+            "https://www.productos.com/producto8c.png"
+        ]
+    },
+    {
+        "id": 9,
+        "title": "Producto 9",
+        "description": "Descripcion de producto 9",
+        "code": "i1i1i1i1i1i1",
+        "price": 900,
+        "status": true,
+        "stock": 45,
+        "category": "Category3",
+        "thumbnail": [
+            "https://www.productos.com/producto9a.png",
+            "https://www.productos.com/producto9b.png",
+            "https://www.productos.com/producto9c.png"
+        ]
+    },
+    {
+        "id": 10,
+        "title": "Producto 10",
+        "description": "Descripcion de producto 10",
+        "code": "j1j1j1j1j1j1",
+        "price": 680,
+        "status": false,
+        "stock": 96,
+        "category": "Category3",
+        "thumbnail": [
+            "https://www.productos.com/producto10a.png",
+            "https://www.productos.com/producto10b.png",
+            "https://www.productos.com/producto10c.png"
+        ]
+    }
+]

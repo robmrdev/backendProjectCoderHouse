@@ -15,8 +15,8 @@ router.get('/', async(req,res)=>{
 })
 
 
-router.post('/', async(req,res)=>{
-    const { title, description, price, thumbmail, code, stock, category, status } = req.body;
+router.post('/', async(req,res)=>{  
+    const { title, description, price, thumbnail, code, stock, category, status } = req.body;
 
     if(!title || !description || !price || !code || !stock || !category || typeof status !== 'boolean'){
         return res.status(400).send({status: 'error', error: 'Incomplete values'})
@@ -26,7 +26,7 @@ router.post('/', async(req,res)=>{
             title, 
             description, 
             price, 
-            thumbmail, 
+            thumbnail, 
             code, 
             stock, 
             category, 
@@ -49,7 +49,7 @@ router.delete('/:id', async(req,res)=>{
     res.send({ status: 'succes', payload: result})
 })
 router.put('/:id', async(req,res)=>{
-    const {title, description, price, thumbmail, code, stock, category, status} = req.body;
+    const {title, description, price, thumbnail, code, stock, category, status} = req.body;
     const {id}= req.params
 
     if(!title || !description || !price || !code || !stock || !category || typeof status !== 'boolean'){
@@ -61,7 +61,7 @@ router.put('/:id', async(req,res)=>{
             title, 
             description, 
             price, 
-            thumbmail, 
+            thumbnail, 
             code, 
             stock, 
             category, 

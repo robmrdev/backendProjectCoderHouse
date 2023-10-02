@@ -5,7 +5,6 @@ import viewRouter from './routes/viewsRouter.js';
 import handlebars from 'express-handlebars';
 import mongoose from "mongoose";
 import __dirname from './utils.js'
-import ProductDBManager from "./dao/dbManagers/productManager.js";
 
 
 
@@ -24,7 +23,7 @@ app.use(express.urlencoded({extended:true}));
 app.engine('handlebars', handlebars.engine());
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars');
-// app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'))
 app.use('/', viewRouter)
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
@@ -32,8 +31,6 @@ app.use('/api/carts', cartsRouter);
 
 
 
-// const httpServer = app.listen(8080, () => console.log('listening 8080'));
-// export const socketServer = new Server(httpServer);
 
 
 try {
@@ -43,6 +40,34 @@ try {
     console.log(error.message)   
 }
 app.listen(8080, ()=>console.log('Server Running'))
+
+
+import http from 'http';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+
+const server = createServer(app);
+const io = new Server(server);
+
+
+let messages =[];
+
+io.on('connection', socket=>{
+    console.log('New Client Connected')
+
+    socket.on('authenticate', ()=>{
+        socket.emit('messageLog', messages);
+    })
+
+    socket.on('message', data=>{
+        messages.push(data);
+        io.emit('messageLog', messages)
+    })
+
+    socket.broadcast.emit('userConnected',{user: 'Nuevo usuario Conectado'})
+})
+
+
 
 
 
@@ -80,7 +105,7 @@ app.listen(8080, ()=>console.log('Server Running'))
 
 // app.put('/api/products/:pid', async(req,res)=>{
 //     const pid= parseInt(req.params.pid);
-//     const { title, description, price, thumbmail, code, stock, category, status } = req.body;
+//     const { title, description, price, thumbnail, code, stock, category, status } = req.body;
 
 //     try {
 //         const result = await manager.updateProduct({
@@ -88,7 +113,7 @@ app.listen(8080, ()=>console.log('Server Running'))
 //             title,
 //             description,
 //             price,
-//             thumbmail,
+//             thumbnail,
 //             code,
 //             stock,
 //             category,
@@ -229,14 +254,14 @@ app.listen(8080, ()=>console.log('Server Running'))
 
 
 // app.post('/api/products', async (req, res) => {
-//     const { title, description, price, thumbmail, code, stock, category, status } = req.body;
+//     const { title, description, price, thumbnail, code, stock, category, status } = req.body;
 
 //     try {
 //         const result = await manager.addProduct({
 //             title,
 //             description,
 //             price,
-//             thumbmail,
+//             thumbnail,
 //             code,
 //             stock,
 //             category,
@@ -284,7 +309,7 @@ app.listen(8080, ()=>console.log('Server Running'))
 
 // app.put('/api/products/:pid', async(req,res)=>{
 //     const pid= parseInt(req.params.pid);
-//     const { title, description, price, thumbmail, code, stock, category, status } = req.body;
+//     const { title, description, price, thumbnail, code, stock, category, status } = req.body;
 
 //     try {
 //         const result = await manager.updateProduct({
@@ -292,7 +317,7 @@ app.listen(8080, ()=>console.log('Server Running'))
 //             title,
 //             description,
 //             price,
-//             thumbmail,
+//             thumbnail,
 //             code,
 //             stock,
 //             category,

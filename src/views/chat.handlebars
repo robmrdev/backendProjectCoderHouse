@@ -5,3 +5,63 @@
 <div>
     <input type="text" id="chatBox">
 </div>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    let user;
+    let chatBox = document.getElementById('chatBox');
+
+
+    Swal.fire({
+        title: "Identify yourself",
+        input: 'text',
+        text: "What's your name?",
+        inputValidator: (value) => {
+            return !value && 'You need to have a Name'
+        },
+        allowOutsideClick: false
+    }).then((result) => {
+        user = result.value;
+        socket.emit('authenticate');
+
+        socket.on('messageLog', data => {
+            let log = document.getElementById('messageLog')
+            let messages = "";
+            data.forEach(e => {
+                messages = messages + `${e.user} says: ${e.message}</br>`
+            });
+            log.innerHTML = messages;
+        })
+
+        socket.on('userConnected', data => {
+            Swal.fire({
+                text: 'Nuevo usuario conectado',
+                toast: true,
+                position: 'top-right'
+            });
+        });
+    });
+
+    chatBox.addEventListener('keyup', evt => {
+        if (evt.key === 'Enter') {
+            if (chatBox.value.trim().length > 0) {
+                socket.emit('message', { user: user, message: chatBox.value });
+                chatBox.value = "";
+            }
+        }
+    })
+
+    socket.on('messageLog', data => {
+        let log = document.getElementById('messageLog')
+        let messages = "";
+        data.forEach(e => {
+            messages = messages + `${e.user} says: ${e.message}</br>`
+        });
+        log.innerHTML = messages;
+    })
+</script>
