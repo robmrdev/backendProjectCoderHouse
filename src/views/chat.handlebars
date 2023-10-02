@@ -47,10 +47,22 @@
         });
     });
 
-    chatBox.addEventListener('keyup', evt => {
+    chatBox.addEventListener('keyup', async evt => {
         if (evt.key === 'Enter') {
             if (chatBox.value.trim().length > 0) {
                 socket.emit('message', { user: user, message: chatBox.value });
+
+
+                const message = document.getElementById('chatBox').value
+                
+                const response = await fetch('/chat/', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message,
+                        user
+                    }),
+                });
                 chatBox.value = "";
             }
         }

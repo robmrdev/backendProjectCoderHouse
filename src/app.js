@@ -2,10 +2,10 @@ import express from "express";
 import cartsRouter from './routes/cartRouter.js'
 import productsRouter from './routes/productsRouter.js'
 import viewRouter from './routes/viewsRouter.js';
+import chatRouter from './routes/chatRouter.js'
 import handlebars from 'express-handlebars';
 import mongoose from "mongoose";
 import __dirname from './utils.js'
-
 
 
 // import ProductManager from "./dao/fileManagers/productManager.js";
@@ -27,6 +27,7 @@ app.use(express.static(__dirname + '/public'))
 app.use('/', viewRouter)
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+app.use('/chat', chatRouter)
 
 
 
@@ -39,15 +40,18 @@ try {
 } catch (error) {
     console.log(error.message)   
 }
-app.listen(8080, ()=>console.log('Server Running'))
+// app.listen(8080, ()=>console.log('Server Running'))
 
 
 import http from 'http';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
+
+const httpServer = app.listen(8080, ()=> console.log('Listening 8080'))
+
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(httpServer);
 
 
 let messages =[];
@@ -62,6 +66,7 @@ io.on('connection', socket=>{
     socket.on('message', data=>{
         messages.push(data);
         io.emit('messageLog', messages)
+
     })
 
     socket.broadcast.emit('userConnected',{user: 'Nuevo usuario Conectado'})
