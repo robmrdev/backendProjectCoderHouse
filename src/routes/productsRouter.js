@@ -21,6 +21,13 @@ router.post('/', async(req,res)=>{
     if(!title || !description || !price || !code || !stock || !category || typeof status !== 'boolean'){
         return res.status(400).send({status: 'error', error: 'Incomplete values'})
     }
+    const products = await productManager.getAll()
+
+    const existingProduct = products.find(product => product.code === code);
+    if (existingProduct) {
+        return res.status(400).send({ status: 'error', error: `El producto con código ${code} ya existe.` });
+    }
+
     try {
         const result = await productManager.save({
             title, 
