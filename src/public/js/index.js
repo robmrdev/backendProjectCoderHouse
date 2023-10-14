@@ -1,13 +1,12 @@
-// const socket = io();
-// socket.emit('message', "From websocket")
 
 
 
 
-function updateProducts (products) {
+
+function updateProducts(products) {
 
     const productList = document.getElementById('realTimeProducts');
-    productList.innerHTML = ''; 
+    productList.innerHTML = '';
 
     products.forEach((product) => {
         const productCard = document.createElement('div');
@@ -44,21 +43,21 @@ function updateProducts (products) {
     document.querySelectorAll('.delete-product').forEach((button) => {
         button.addEventListener('click', async (e) => {
             const productId = e.target.getAttribute('data-product-id');
-    
+
             try {
                 const response = await fetch(`/api/products/${productId}`, {
                     method: 'DELETE',
                 });
 
 
-                const newProductList = await fetch('/api/products/', { method: 'GET'})
+                const newProductList = await fetch('/api/products/', { method: 'GET' })
                 const productListUpdated = await newProductList.json()
                 updateProducts(productListUpdated.payload)
 
 
                 if (response.status === 200) {
                     console.log('Producto eliminado con éxito');
-                } 
+                }
                 else {
                     console.error('Error al eliminar el producto');
                 }
@@ -68,8 +67,6 @@ function updateProducts (products) {
         });
     });
 }
-
-
 
 document.querySelectorAll('.delete-product').forEach((button) => {
     button.addEventListener('click', async (e) => {
@@ -81,7 +78,7 @@ document.querySelectorAll('.delete-product').forEach((button) => {
             });
 
 
-            const newProductList = await fetch('/api/products/', { method: 'GET'})
+            const newProductList = await fetch('/api/products/', { method: 'GET' })
             const productListUpdated = await newProductList.json()
             updateProducts(productListUpdated.payload)
 
@@ -89,7 +86,7 @@ document.querySelectorAll('.delete-product').forEach((button) => {
 
             if (response.status === 200) {
                 console.log('Producto eliminado con éxito');
-            } 
+            }
             else {
                 console.error('Error al eliminar el producto');
             }
@@ -127,8 +124,8 @@ document.querySelector('form').addEventListener('submit', async (e) => {
                 status
             }),
         });
-        
-        const newProductList = await fetch('/api/products/', { method: 'GET'})
+
+        const newProductList = await fetch('/api/products/', { method: 'GET' })
         const productListUpdated = await newProductList.json()
         updateProducts(productListUpdated.payload)
 
@@ -144,5 +141,33 @@ document.querySelector('form').addEventListener('submit', async (e) => {
 
 
 
+document.querySelectorAll('.querySelector').forEach((button) => {
+    button.addEventListener('click', async (e) => {
+      e.preventDefault(); 
+      
+      const category = button.getAttribute('data-category');
+      const page = button.getAttribute('data-page');
+      const limit = button.getAttribute('data-limit');
+  
+      const newUrl = `/realtimeproducts?page=1&limit=${limit}&query=${category}`;
+  
+      window.location.href = newUrl;
+    });
+  });
 
+  document.addEventListener('DOMContentLoaded', function () {
+    const colorSelectors = document.querySelectorAll('.colorSelector');
+
+    colorSelectors.forEach((selector) => {
+        selector.addEventListener('click', function () {
+            const colorData = this.getAttribute('data-colorName').split(",");
+            const productImageId = this.getAttribute('data-productImageId');
+            const productImage = document.getElementById(productImageId);
+
+            if (productImage) {
+                productImage.src = `./img/{{this.category}}/${colorData[0]}`;
+            }
+        });
+    });
+});
 

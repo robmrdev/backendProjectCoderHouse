@@ -1,6 +1,10 @@
 import { Router } from "express";
 import ProductDBManager from '../dao/dbManagers/productManager.js'
 
+
+import { productModel } from "../dao/models/productModel.js";
+
+
 const router = Router();
 const productManager = new ProductDBManager();
 
@@ -9,6 +13,13 @@ router.get('/', async(req,res)=>{
     try{
         const products = await productManager.getAll();
         res.send({ status: 'succes', payload: products});
+
+        const test = await productModel.find({title: 'Producto 1'}).explain('extecutionStats')
+        console.log(test)
+
+
+
+
     } catch (error){
         res.status(500).send({status: 'error', error: error.message});
     }
@@ -16,9 +27,9 @@ router.get('/', async(req,res)=>{
 
 
 router.post('/', async(req,res)=>{  
-    const { title, description, price, thumbnail, code, stock, category, status } = req.body;
+    const { title, description, price, thumbnail, code, stock, category, status, color, colorCode } = req.body;
 
-    if(!title || !description || !price || !code || !stock || !category || typeof status !== 'boolean'){
+    if(!title || !description || !price || !code || !stock || !category || !color || !colorCode || typeof status !== 'boolean'){
         return res.status(400).send({status: 'error', error: 'Incomplete values'})
     }
     const products = await productManager.getAll()
@@ -37,7 +48,9 @@ router.post('/', async(req,res)=>{
             code, 
             stock, 
             category, 
-            status
+            status,
+            color,
+            colorCode
         });
         res.status(201).send({ status: 'succes', payload: result});
     } catch (error) {
@@ -56,10 +69,10 @@ router.delete('/:id', async(req,res)=>{
     res.send({ status: 'succes', payload: result})
 })
 router.put('/:id', async(req,res)=>{
-    const {title, description, price, thumbnail, code, stock, category, status} = req.body;
+    const {title, description, price, thumbnail, code, stock, category, status, color, colorCode} = req.body;
     const {id}= req.params
 
-    if(!title || !description || !price || !code || !stock || !category || typeof status !== 'boolean'){
+    if(!title || !description || !price || !code || !stock || !category || !color || !colorCode || typeof status !== 'boolean'){
         return res.status(400).send({status: 'error', error: 'Incomplete values'})
     }
 
@@ -72,7 +85,9 @@ router.put('/:id', async(req,res)=>{
             code, 
             stock, 
             category, 
-            status
+            status,
+            color,
+            colorCode
         })
         res.send({ status: 'succes', payload: result});
     } catch (error) {

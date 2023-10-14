@@ -1,50 +1,49 @@
-
 <h1>PRODUCTS</h1>
 
 <h3>Categories</h3>
 {{#each allCategories}}
-  <a href="#" class="querySelector" data-category="{{this}}" data-page="{{../page}}" data-limit="{{../limit}}">
-    <button>{{this}}</button>
-  </a>
+<a href="#" class="querySelector" data-category="{{this}}" data-page="{{../page}}" data-limit="{{../limit}}">
+  <button>{{this}}</button>
+</a>
 {{/each}}
 
 
 <div class="productContainer" id="realTimeProducts">
-    {{#each user}}
-    <div>
-        <h3>Number {{this._id}}</h3>
-        <p>Product: {{this.title}}</p>
-        <p>Description: {{this.description}}</p>
-        <p>Code: {{this.code}}</p>
-        <p>Price: {{this.price}}</p>
-        <p>Stock: {{this.stock}}</p>
-    </div>
-    {{/each}}
-    
-    {{#if hasPrevPage}}
-    <a href="/products?page={{prevPage}}&limit={{limit}}&query={{query}}"><button>Anterior</button></a>
-    {{/if}}
-    
-    {{#if hasNextPage}}
-    <a href="/products?page={{nextPage}}&limit={{limit}}&query={{query}}"><button>Siguiente</button></a>
-    {{/if}}
+  {{#each user}}
+  <div>
+    <h3>Number {{this._id}}</h3>
+    <p>Product: {{this.title}}</p>
+    <p>Description: {{this.description}}</p>
+    <p>Code: {{this.code}}</p>
+    <p>Price: {{this.price}}</p>
+    <p>Stock: {{this.stock}}</p>
+  </div>
+  {{/each}}
+
+  {{#if hasPrevPage}}
+  <a href="/products?page={{prevPage}}&limit={{limit}}&query={{query}}"><button>Anterior</button></a>
+  {{/if}}
+
+  {{#if hasNextPage}}
+  <a href="/products?page={{nextPage}}&limit={{limit}}&query={{query}}"><button>Siguiente</button></a>
+  {{/if}}
 </div>
 
 
-<script> 
-   document.querySelectorAll('.querySelector').forEach((button) => {
-  button.addEventListener('click', async (e) => {
-    e.preventDefault(); 
-    
-    const category = button.getAttribute('data-category');
-    const page = button.getAttribute('data-page');
-    const limit = button.getAttribute('data-limit');
+<script>
+  document.querySelectorAll('.querySelector').forEach((button) => {
+    button.addEventListener('click', async (e) => {
+      e.preventDefault();
 
-    const newUrl = `/products?page=${page}&limit=${limit}&query=${category}`;
+      const category = button.getAttribute('data-category');
+      const page = button.getAttribute('data-page');
+      const limit = button.getAttribute('data-limit');
 
-    window.location.href = newUrl;
+      const newUrl = `/products?page=${page}&limit=${limit}&query=${category}`;
+
+      window.location.href = newUrl;
+    });
   });
-});
 
 
 </script>

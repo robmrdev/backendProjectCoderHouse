@@ -1,23 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Registro de usuarios</title>
-    </head>
-    <body>
-        <form method="POST" action="/user">
-            <label for="name">Nombre:</label>
-            <input type="text" name="name" id="name" required>
-            
-            <label for="name">Correo:</label>
-            <input type="email" name="email" id="email" required>
-            
-            <label for="password">Contrasena:</label>
-            <input type="password" name="password" id="password" required>
-            
-            <br>
-            
-            
-            <button type="submit">Registrar</button>
-        </form>
-    </body>
-</html>
+<div class="loginContainer">
+
+    <h1>Register</h1>
+    <form id="registerForm">
+        <label>Name:</label>
+        <input name="first_name">
+        <br />
+        <label>Lastname:</label>
+        <input name="last_name">
+        <br />
+        <label>Email:</label>
+        <input name="email">
+        <br />
+        <label>Age:</label>
+        <input name="age">
+        <br />
+        <label>Password:</label>
+        <input type="password" name="password">
+        <input type="submit">
+        <br>
+    </form>
+    <p>Do you have an account?<a href="/login">Log in</a></p>
+</div>
+
+<script src="js/register.js"> </script>

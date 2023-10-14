@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
         require: true
     }, 
     thumbnail:{
-        type: Array,
+        type: Object,
         default: []
     }, 
     code:{
@@ -36,6 +36,14 @@ const productSchema = new mongoose.Schema({
     status:{
         type: Boolean,
         default: true
+    }, 
+    color:{
+        type: Array,
+        require: true
+    },
+    colorCode:{
+        type: Object,
+        require:true
     }
 });
 

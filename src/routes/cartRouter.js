@@ -46,12 +46,11 @@ router.post('/', async (req, res) => {
 router.put('/:cid/products/:pid', async (req, res) => {
     const { cid, pid } = req.params
 
-    const { quantity } = req.body;
 
     try {
-        const product = { product: { id: pid }, quantity: quantity || 1 };
+        const product = { product: { _id: pid }};
+        
         const result = await cartManager.addProduct(cid, product);
-
 
         const productsById = await productManager.getOne(pid)
         if (productsById === "Not Found") {

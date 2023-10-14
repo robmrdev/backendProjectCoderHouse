@@ -27,15 +27,15 @@ export default class CartDBManager {
         const cart= await this.getOne(cid)
 // return console.log(cart.products)
 
-        const existingProductIndex = cart.products.findIndex(p => p.product.id === product.product.id);
+        // const existingProductIndex = cart.products.find(p => p.product._id === product.product._id);
 
-            if (existingProductIndex === -1) {
+            // if (existingProductIndex === -1) {
                 cart.products.push(product)
-            } else {
-                cart.products[existingProductIndex].quantity += product.quantity;
-            }
+            // } else {
+            //     cart.products[existingProductIndex].quantity += product.quantity;
+            // }
             
-            console.log(product)
+            // console.log(product.product._id)
             // cart.products.push(product);
             await this.update(cid, cart );
             return `Product added to cart ${cid}`;

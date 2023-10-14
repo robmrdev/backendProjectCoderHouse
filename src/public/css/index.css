@@ -1,11 +1,90 @@
 h1{
     text-align: center;
 }
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+.userHeader{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}
+.categoriesContainer{
+    display: flex;
+    flex-direction: column;
+}
+.categoriesInner{
+    display: flex;
+}
+.productCard{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+.productCard img{
+max-width: 80%;
+margin: 0 auto;
+}
+.cardInfo{
+    max-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.cardRight{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+.cardButtons{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.cardButtons>div{
+    display: flex;
+}
+.colorSelector{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: 0 5px;
+
+    background-color: linear-gradient(to left bottom, rgb(152, 160, 165) 50%, rgb(42, 40, 40) 50%)
+}
+
 .productContainer{
+    max-width: 1400px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
 }
-.productContainer div {
+.productContainer>div {
     width: 400px;
+}
+.pageButtons{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+
+.loginContainer{
+    margin: 0 auto;
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90vh;
+}
+.loginContainer form{
+    display: flex;
+    flex-direction: column;
 }

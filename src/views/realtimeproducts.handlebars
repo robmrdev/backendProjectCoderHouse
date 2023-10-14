@@ -1,45 +1,92 @@
 <h1>PRODUCTS FROM WEBSOCKET</h1>
+
+<span class="header">
+    <div class="categoriesContainer">
+        <h3>Categories</h3>
+        <div class="categoriesInner">
+            {{#each allCategories}}
+            <a href="#" class="querySelector" data-category="{{this}}" data-page="{{../page}}"
+                data-limit="{{../limit}}">
+                <button>{{this}}</button>
+            </a>
+            {{/each}}
+            <a href="#" class="querySelector" data-category="" data-page="{{page}}"
+                data-limit="{{limit}}"><button>All</button></a>
+        </div>
+    </div>
+    <div class="userHeader">
+        <p> Hola! {{#if user}}{{user.name}}{{else}} Usuario Anonimo {{/if}} <strong>{{user.rol}}</strong></p>
+
+        {{#if user}}
+        <a href="/api/sessions/logout"><button>Log out</button></a>
+        {{else}}
+        <a href="/login"><button>Log in</button></a>
+        {{/if}}
+    </div>
+</span>
 <div class="productContainer" id="realTimeProducts">
-    {{#each user}}
-    <div>
-        <h3>Number {{this._id}}</h3>
-        <p>Product: {{this.title}}</p>
-        <p>Description: {{this.description}}</p>
-        <p>Code: {{this.code}}</p>
-        <p>Price: {{this.price}}</p>
-        <p>Stock: {{this.stock}}</p>
-        <button class="delete-product" data-product-id="{{this._id}}">Delete</button>
+    {{#each product}}
+    <div class="productCard">
+        <img src="./img/{{this.category}}/{{this.color}}" alt="" class="productImage">
+        <span class="cardInfo">
+            <div class="cardLeft">
+                <h3>{{this.title}}</h3>
+                <p>{{this.description}}</p>
+                <p>Code: {{this.code}}</p>
+            </div>
+            <div class="cardRight">
+                <p>{{this.price}}</p>
+                <p>Only {{this.stock}} left!</p>
+            </div>
+        </span>
+        <span class="cardButtons">
+            <div>
+                {{#each this.colorCode}}
+                <div class="colorSelector" style="background-color: {{this}}; background:{{this}}"></div>
+                {{/each}}
+            </div>
+            <button class="delete-product" data-product-id="{{this._id}}">Delete</button>
+        </span>
     </div>
     {{/each}}
 </div>
+<div class="pageButtons">
+    {{#if hasPrevPage}}
+    <a href="/realtimeproducts?page={{prevPage}}&limit={{limit}}&query={{query}}"><button>Anterior</button></a>
+    {{/if}}
 
-        <form>
-            <label for="title">title:</label>
-            <input type="text" name="title" id="title" required>
-            
-            <label for="description">description:</label>
-            <input type="text" name="description" id="description" required>
-            
-            <label for="thumbnail">thumbnail:</label>
-            <input type="text" name="thumbnail" id="thumbnail" required>
-            
-            <label for="code">code:</label>
-            <input type="text" name="code" id="code" required>
-            
-            <label for="price">price:</label>
-            <input type="text" name="price" id="price" required>
-            
-            <label for="stock">stock:</label>
-            <input type="text" name="stock" id="stock" required>
-            
-            <label for="category">category:</label>
-            <input type="text" name="category" id="category" required>
-            
-            
-            <br>
-            
-            
-            <button type="submit">Registrar</button>
-        </form>
-{{!-- <script src="/socket.io/socket.io.js"></script> --}}
+    {{#if hasNextPage}}
+    <a href="/realtimeproducts?page={{nextPage}}&limit={{limit}}&query={{query}}"><button>Siguiente</button></a>
+    {{/if}}
+
+</div>
+
+<form>
+    <label for="title">title:</label>
+    <input type="text" name="title" id="title" required>
+
+    <label for="description">description:</label>
+    <input type="text" name="description" id="description" required>
+
+    <label for="thumbnail">thumbnail:</label>
+    <input type="text" name="thumbnail" id="thumbnail" required>
+
+    <label for="code">code:</label>
+    <input type="text" name="code" id="code" required>
+
+    <label for="price">price:</label>
+    <input type="text" name="price" id="price" required>
+
+    <label for="stock">stock:</label>
+    <input type="text" name="stock" id="stock" required>
+
+    <label for="category">category:</label>
+    <input type="text" name="category" id="category" required>
+
+
+    <br>
+
+
+    <button type="submit">Registrar</button>
+</form>
 <script src="js/index.js"> </script>
