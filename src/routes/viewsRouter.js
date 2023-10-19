@@ -17,12 +17,6 @@ const privateAccess = (req,res,next)=>{
     next()
 }
 
-function auth(req,res,next){
-    if(req.session?.user =='juan' && req.session?.admin){
-        return next()
-    }
-    return res.status(401).send('Not Allowed, Log in first')
-}
 
 
 router.get('/realTimeProducts', async (req,res)=>{
@@ -128,9 +122,6 @@ router.get('/',privateAccess,async (req,res)=>{
 })
 
 
-router.get('/private', auth, (req,res)=>{
-    res.send('Allowed')
-})
 
 
 router.get('/products', async (req, res) => {

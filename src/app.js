@@ -1,23 +1,19 @@
 import express from "express";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import {__dirname} from './utils.js';
 import cartsRouter from './routes/cartRouter.js'
 import productsRouter from './routes/productsRouter.js'
 import viewRouter from './routes/viewsRouter.js';
 import chatRouter from './routes/chatRouter.js'
 import sessionsRouter from './routes/sessionRouter.js'
+// import authRouter from './routes/auth.router.js'
 import handlebars from 'express-handlebars';
-import mongoose from "mongoose";
-import __dirname from './utils.js'
-import session from "express-session";;
-import MongoStore from "connect-mongo";
-
-import { createServer } from 'http';
 import { Server } from 'socket.io';
+import initializePassport from "./config/passport.config.js";
+import passport from "passport";
+import mongoose from "mongoose";
 
-// import ProductManager from "./dao/fileManagers/productManager.js";
-// import CartManager from "./dao/fileManagers/cartManager.js";
-// const cartManager = new CartManager('../carts.json')
-// const manager = new ProductManager('../products.json');
-// import {Server} from 'socket.io'
 
 
 const app = express();
@@ -31,6 +27,11 @@ try {
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(express.static(__dirname + '/public'))
+app.engine('handlebars', handlebars.engine());
+app.set('views', `${__dirname}/views`);
+app.set('view engine', 'handlebars');
+
 
 app.use(session({
     store: MongoStore.create({
@@ -40,31 +41,21 @@ app.use(session({
     secret: 'Coder47300',
     resave: true,
     saveUninitialized: true,
-
 }))
 
 
-app.engine('handlebars', handlebars.engine());
-app.set('views', `${__dirname}/views`);
-app.set('view engine', 'handlebars');
-app.use(express.static(__dirname + '/public'))
+initializePassport();
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use('/', viewRouter)
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/chat', chatRouter)
 app.use('/api/sessions', sessionsRouter)
-
-
-
-
-
-
-
-
-
+// app.use('/api/auth', authRouter)
 
 const httpServer = app.listen(8080, ()=> console.log('Listening 8080'))
-
 const io = new Server(httpServer);
 
 

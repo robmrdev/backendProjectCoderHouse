@@ -14,9 +14,6 @@ router.get('/', async(req,res)=>{
         const products = await productManager.getAll();
         res.send({ status: 'succes', payload: products});
 
-        const test = await productModel.find({title: 'Producto 1'}).explain('extecutionStats')
-        console.log(test)
-
 
 
 
