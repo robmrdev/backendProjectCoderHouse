@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { authToken, generateToken } from "../utils.js";
+import passport from "passport";
 
 const router = Router()
 
@@ -30,20 +31,21 @@ router.post('/register', async(req,res)=>{
 router.post('/login', async (req,res)=>{
     try {
         const {email, password} = req.body;
-
         const user = users.find(user=> user.email === email && user.password === password)
 
         if(!user) return res.status(401).send({status: 'error', message:'Invalid credentials'})
 
+        delete user.password;
         const accessToken = generateToken(user)
-        res.send({status: 'sucess', access_token:accessToken})
+        res.cookie('accessTokenCookie', accessToken, {maxAge:60 * 60 * 1000}).send({status: 'success'})
+        // res.send({status: 'sucess', access_token:accessToken})
 
     } catch (error) {
         res.status(500).send({status: 'error', message:'Login fail'})
     }
 })
 
-router.get('/private', authToken, (req,res)=>{
+router.get('/private', passport.authenticate('current',{session:false}), (req,res)=>{
     res.send({status: 'success', payload: req.user})
 })
 

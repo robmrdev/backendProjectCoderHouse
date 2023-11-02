@@ -3,8 +3,8 @@ import { Router } from "express";
 import ProductDBManager from "../dao/dbManagers/productManager.js";
 import ChatDBManager from "../dao/dbManagers/chatManager.js";
 import { productModel } from "../dao/models/productModel.js";
+import passport from "passport";
 const router = Router()
-
 const productManager = new ProductDBManager();
 const chatManager = new ChatDBManager()
 
@@ -19,9 +19,8 @@ const privateAccess = (req,res,next)=>{
 
 
 
-router.get('/realTimeProducts', async (req,res)=>{
+router.get('/realTimeProducts', passport.authenticate('current',{session:false}), async (req,res)=>{
     const { page = 1, limit = 5, query = '', sort = '' } = req.query;
-    
     let sortOption = {};
     if (sort === 'asc' || sort === 'desc') {
         sortOption = { price: sort === 'asc' ? 1 : -1 };
@@ -29,6 +28,7 @@ router.get('/realTimeProducts', async (req,res)=>{
         sortOption = {}; 
     }
 
+    console.log(req.user)
 
 
     try {

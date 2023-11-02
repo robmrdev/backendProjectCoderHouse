@@ -7,12 +7,13 @@ import productsRouter from './routes/productsRouter.js'
 import viewRouter from './routes/viewsRouter.js';
 import chatRouter from './routes/chatRouter.js'
 import sessionsRouter from './routes/sessionRouter.js'
-// import authRouter from './routes/auth.router.js'
+import authRouter from './routes/auth.router.js'
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
 import initializePassport from "./config/passport.config.js";
 import passport from "passport";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 
 
@@ -31,7 +32,7 @@ app.use(express.static(__dirname + '/public'))
 app.engine('handlebars', handlebars.engine());
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars');
-
+app.use(cookieParser())
 
 app.use(session({
     store: MongoStore.create({
@@ -46,14 +47,14 @@ app.use(session({
 
 initializePassport();
 app.use(passport.initialize())
-app.use(passport.session())
+// app.use(passport.session())
 
 app.use('/', viewRouter)
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/chat', chatRouter)
 app.use('/api/sessions', sessionsRouter)
-// app.use('/api/auth', authRouter)
+app.use('/api/auth', authRouter)
 
 const httpServer = app.listen(8080, ()=> console.log('Listening 8080'))
 const io = new Server(httpServer);

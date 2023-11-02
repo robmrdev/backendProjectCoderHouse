@@ -171,3 +171,5 @@ document.querySelectorAll('.querySelector').forEach((button) => {
     });
 });
 
+
+console.log(document.cookie)
