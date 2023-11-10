@@ -32,7 +32,6 @@ app.use(express.static(__dirname + '/public'))
 app.engine('handlebars', handlebars.engine());
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars');
-app.use(cookieParser())
 
 app.use(session({
     store: MongoStore.create({
@@ -55,6 +54,7 @@ app.use('/api/carts', cartsRouter);
 app.use('/chat', chatRouter)
 app.use('/api/sessions', sessionsRouter)
 app.use('/api/auth', authRouter)
+app.use(cookieParser())
 
 const httpServer = app.listen(8080, ()=> console.log('Listening 8080'))
 const io = new Server(httpServer);

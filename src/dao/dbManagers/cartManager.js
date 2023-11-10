@@ -11,7 +11,7 @@ export default class CartDBManager {
     }
     
     getOne = async(id)=>{
-        const cart = await cartModel.findById(id)
+        const cart = await cartModel.findOne({_id:id})
         return cart
     }
 
@@ -23,23 +23,7 @@ export default class CartDBManager {
         const result = await cartModel.updateOne({ _id:id}, cart);
         return result
     }
-    addProduct = async (cid,product)=>{
-        const cart= await this.getOne(cid)
-// return console.log(cart.products)
-
-        // const existingProductIndex = cart.products.find(p => p.product._id === product.product._id);
-
-            // if (existingProductIndex === -1) {
-                cart.products.push(product)
-            // } else {
-            //     cart.products[existingProductIndex].quantity += product.quantity;
-            // }
-            
-            // console.log(product.product._id)
-            // cart.products.push(product);
-            await this.update(cid, cart );
-            return `Product added to cart ${cid}`;
-    }
+    
 
 
 
