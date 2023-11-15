@@ -6,7 +6,7 @@ import cartsRouter from './routes/cartRouter.js'
 import productsRouter from './routes/productsRouter.js'
 import viewRouter from './routes/viewsRouter.js';
 import chatRouter from './routes/chatRouter.js'
-import sessionsRouter from './routes/sessionRouter.js'
+// import sessionsRouter from './routes/sessionRouter.js'
 import authRouter from './routes/auth.router.js'
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
@@ -48,13 +48,13 @@ initializePassport();
 app.use(passport.initialize())
 // app.use(passport.session())
 
+app.use(cookieParser())
 app.use('/', viewRouter)
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/chat', chatRouter)
-app.use('/api/sessions', sessionsRouter)
+// app.use('/api/sessions', sessionsRouter)
 app.use('/api/auth', authRouter)
-app.use(cookieParser())
 
 const httpServer = app.listen(8080, ()=> console.log('Listening 8080'))
 const io = new Server(httpServer);

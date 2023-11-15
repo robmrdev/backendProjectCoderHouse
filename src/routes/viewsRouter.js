@@ -1,12 +1,8 @@
-import express from "express"
 import { Router } from "express";
-import ProductDBManager from "../dao/dbManagers/productManager.js";
 import ChatDBManager from "../dao/dbManagers/chatManager.js";
-import { productModel } from "../dao/models/productModel.js";
 import passport from "passport";
-import { getAllProducts } from "../controllers/viewsController.js";
+import { getAllProducts, getChat, getLogin, getRegister, mainPage } from "../controllers/viewsController.js";
 const router = Router()
-const productManager = new ProductDBManager();
 const chatManager = new ChatDBManager()
 
 const publicAccess = (req,res,next)=>{
@@ -19,46 +15,15 @@ const privateAccess = (req,res,next)=>{
 }
 
 
-
 router.get('/realTimeProducts', passport.authenticate('current',{session:false}), getAllProducts)
 
-router.get('/chat', async (req,res)=>{
-    try {
-        let messages = await chatManager.getAll()
-        res.render('chat',{
-            messages: messages
-        })
+router.get('/chat', getChat)
 
+router.get('/register',publicAccess, getRegister)
 
-    } catch (error) {
-        console.error(error.message)
-    }
-})
+router.get('/login',publicAccess, getLogin)
 
-router.get('/register',publicAccess, async (req,res)=>{
-    try {
-        res.render('register');
-
-
-    } catch (error) {
-        console.error(error.message)
-    }
-})
-
-router.get('/login',publicAccess, async (req,res)=>{
-    try {
-        res.render('login');
-    } catch (error) {
-        console.error(error.message)
-    }
-})
-router.get('/',privateAccess,async (req,res)=>{
-    try {
-        res.redirect('realtimeproducts')
-    } catch (error) {
-        console.error(error.message)
-    }
-})
+router.get('/',privateAccess, mainPage)
 
 
 

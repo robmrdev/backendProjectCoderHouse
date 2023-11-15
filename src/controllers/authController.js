@@ -1,8 +1,6 @@
 import { createUser, loginUser } from "../services/authService.js";
-import { authToken, generateToken } from "../utils.js";
-import passport from "passport";
 
-const users = [] //?REEMPLAZAR CON BASE DE DATOS LUEGO
+const users = [{email:"thais@sd.com", password: "1234"}] //?REEMPLAZAR CON BASE DE DATOS LUEGO
 
 const register = async(req,res)=>{
     try {

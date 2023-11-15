@@ -10,7 +10,6 @@ const __dirname = dirname(__filename);
 const PRIVATE_KEY = PRIVATE_KEY_JWT
 
 const generateToken = (user) => {
-    console.log('123')
     const token = jwt.sign({ user }, PRIVATE_KEY_JWT, { expiresIn: '24h' })
     return token
 }

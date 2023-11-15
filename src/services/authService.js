@@ -17,7 +17,6 @@ const createUser = (users, name, email, password) => {
 }
 
 const loginUser = (users, email, password) => {
-
     const user = users.find(user => user.email === email && user.password === password)
 
     if (!user) return res.status(401).send({ status: 'error', message: 'Invalid credentials' })

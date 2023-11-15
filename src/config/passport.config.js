@@ -18,6 +18,7 @@ const initializePassport = () => {
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
         secretOrKey: PRIVATE_KEY_JWT
     }, async (jwt_payload, done) => {
+        console.log(jwt_payload)
         try {
             return done(null, jwt_payload.user)
         } catch (error) {
